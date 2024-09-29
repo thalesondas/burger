@@ -25,15 +25,15 @@ const simularBebidas = [
 
 const Bebidas = () => {
     return(
-    <Container fluid>
-        <Row className="mx-1">
-            {simularBebidas.map((bebida) => (
-                <Col lg={4} xl={3} key={bebida.id}>
-                    <Bebida bebida={bebida} />
-                </Col>
-            ))}
-        </Row>
-    </Container>
+        <Container fluid>
+            <Row className="mx-1 mb-2">
+                {simularBebidas.map((bebida) => (
+                    <Col lg={4} xl={3} key={bebida.id}>
+                        <Bebida bebida={bebida} />
+                    </Col>
+                ))}
+            </Row>
+        </Container>
     )
 }
 

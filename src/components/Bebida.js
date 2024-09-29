@@ -10,7 +10,7 @@ const Bebida = ({ bebida }) => {
                     <Card.Title className="fs-4">{bebida.nome}</Card.Title>
                     <span className="fw-bold fs-5">R$ {bebida.preco.toFixed(2).replace('.', ',')}</span>
                     <Button className="bg-btn-bebida d-flex align-items-center">
-                        <i class="bi bi-cart4"></i>
+                        <i className="bi bi-plus-square"></i>
                     </Button>
                 </Card.Body>
             </div>

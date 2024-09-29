@@ -12,7 +12,7 @@ const Lanche = ({ lanche }) => {
                     <div className="d-flex justify-content-between align-items-center">
                         <span className="fw-bold fs-5">R$ {lanche.preco.toFixed(2).replace('.', ',')}</span>
                         <Button className="bg-btn-lanche d-flex align-items-center">
-                            <i class="bi bi-cart4"></i>
+                            <i className="bi bi-plus-square"></i>
                         </Button>
                     </div>
                 </Card.Body>

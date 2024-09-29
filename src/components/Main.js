@@ -4,7 +4,7 @@ import '../assets/Main.css'
 
 const Main = () => {
     return(
-        <main>
+        <main className='pb-5'>
             <div className='d-flex flex-column justify-content-center align-items-center'>
                 <h1 className='mt-5 mb-5'>Conheça nosso cardápio</h1>
                 <h3 className='mt-1 mb-5'>Lanches</h3>
