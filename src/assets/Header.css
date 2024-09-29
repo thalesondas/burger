@@ -1,0 +1,21 @@
+.header-background{
+    background-image: url('../images/burger_bg.jpg');
+    background-size: cover;
+    background-position: center -300px;
+    width: 100vw;
+    height: 480px;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.burger-logo{
+    object-fit: cover;
+    border: 1px solid white;
+    width: 140px;
+    height: 140px;
+    transition: transform 0.3s;
+}
+
+.burger-logo:hover{
+    transform: scale(1.08);
+}
