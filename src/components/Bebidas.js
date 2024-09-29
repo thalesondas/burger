@@ -28,7 +28,7 @@ const Bebidas = () => {
     <Container fluid>
         <Row className="mx-1">
             {simularBebidas.map((bebida) => (
-                <Col md={3} key={bebida.id}>
+                <Col lg={4} xl={3} key={bebida.id}>
                     <Bebida bebida={bebida} />
                 </Col>
             ))}
