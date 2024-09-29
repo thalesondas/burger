@@ -10,7 +10,7 @@
 
 .burger-logo{
     object-fit: cover;
-    border: 1px solid white;
+    border: 2px solid white;
     width: 140px;
     height: 140px;
     transition: transform 0.3s;
@@ -18,4 +18,8 @@
 
 .burger-logo:hover{
     transform: scale(1.08);
+}
+
+.text-lanche{
+    text-align: justify;
 }

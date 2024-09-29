@@ -1,12 +1,13 @@
-import { Container } from 'react-bootstrap';
-import Header from './components/Header';
-import './App.css';
+import Header from './components/Header.js';
+import Main from './components/Main.js'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
     <>
         <Header />
+        <Main />
     </>
   );
 }
