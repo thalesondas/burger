@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Lanche from "./Lanche";
 
@@ -47,10 +48,20 @@ const simulacaoCardapio = [
 ]
 
 const Cardapio = () => {
+
+    const [cardapio, setCardapio] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/api/cardapio')
+            .then((resp) => resp.json())
+            .then((resp) => setCardapio(resp))
+            .catch((err) => console.log(err));
+    }, [])
+
     return(
         <Container fluid>
             <Row className="mx-1">
-                {simulacaoCardapio.map((lanche) => (
+                {cardapio.map((lanche) => (
                     <Col md={6} key={lanche.id}>
                         <Lanche lanche={lanche} />
                     </Col>

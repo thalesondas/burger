@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const cardapioItemSchema = new mongoose.Schema({
     tipo: String,
-    titulo: String,
+    nome: String,
     descricao: String,
     preco: Number,
     imagemUrl: String

@@ -5,7 +5,7 @@ const Lanche = ({ lanche }) => {
     return (
         <Card md={6} className="bg-lanche mb-3">
             <div className="d-flex">
-                <Card.Img src={lanche.imagem} alt={lanche.nome} className="img-lanche" rounded />
+                <Card.Img src={lanche.imagemUrl} alt={lanche.nome} className="img-lanche" rounded />
                 <Card.Body className="ms-2 me-1">
                     <Card.Title className="fs-4">{lanche.nome}</Card.Title>
                     <Card.Text className="text-lanche">{lanche.descricao}</Card.Text>
