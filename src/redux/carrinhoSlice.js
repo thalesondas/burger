@@ -10,14 +10,14 @@ const carrinhoSlice = createSlice ({
     reducers:{
         addItemCarrinho(state, action){
             const novoItem = action.payload;
-            const itemExistente = state.itemsCarrinho.find(item => item.id === novoItem.id);
+            const itemExistente = state.itemsCarrinho.find(item => item._id === novoItem._id);
 
             state.qtdeTotal++;
 
-            if(itemExistente){
+            if(!itemExistente){
                 state.itemsCarrinho.push({
-                    id: novoItem.id,
-                    nome: novoItem.name,
+                    _id: novoItem._id,
+                    nome: novoItem.nome,
                     preco: novoItem.preco,
                     qtde: 1,
                     precoTotal: novoItem.preco
@@ -30,19 +30,19 @@ const carrinhoSlice = createSlice ({
         },
 
         removerItemCarrinho(state, action){
-            const id = action.payload;
-            const itemExistente = state.itemsCarrinho.find(item => item.id === id);
+            const _id = action.payload;
+            const itemExistente = state.itemsCarrinho.find(item => item._id === _id);
 
             if(itemExistente){
                 state.qtdeTotal -= itemExistente.qtde;
                 state.valorTotal -= itemExistente.precoTotal;
-                state.itemsCarrinho = state.itemsCarrinho.fill(item => item.id != id);
+                state.itemsCarrinho = state.itemsCarrinho.fill(item => item._id !== _id);
             }
         },
 
         aumentarQtde(state, action){
-            const id = action.payload;
-            const itemExistente = state.itemsCarrinho.find(item => item.id === id);
+            const _id = action.payload;
+            const itemExistente = state.itemsCarrinho.find(item => item._id === _id);
 
             if(itemExistente){
                 itemExistente.qtde++;
@@ -53,8 +53,8 @@ const carrinhoSlice = createSlice ({
         },
 
         diminuirQtde(state, action){
-            const id = action.payload;
-            const itemExistente = state.itemsCarrinho.find(item => item.id === id);
+            const _id = action.payload;
+            const itemExistente = state.itemsCarrinho.find(item => item._id === _id);
 
             if(itemExistente){
                 itemExistente.qtde--;

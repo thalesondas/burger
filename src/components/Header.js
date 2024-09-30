@@ -1,4 +1,4 @@
-import { Alert, Container, Image } from "react-bootstrap";
+import { Alert, Image } from "react-bootstrap";
 import Logo from '../images/burger_logo.jpg'
 import '../assets/Header.css'
 
