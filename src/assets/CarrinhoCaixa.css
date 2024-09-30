@@ -10,3 +10,7 @@ footer{
     height: 23px;
     border-radius: 50%;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}
