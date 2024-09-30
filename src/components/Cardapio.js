@@ -7,7 +7,7 @@ const Cardapio = () => {
     const [lanches, setLanches] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/cardapio')
+        fetch('http://localhost:3001/cardapio')
             .then(resp => resp.json())
             .then(resp => resp.filter(item => item.tipo === 'lanche'))
             .then(apenasLanches => setLanches(apenasLanches))

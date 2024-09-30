@@ -7,7 +7,7 @@ const Bebidas = () => {
     const [bebidas, setBebidas] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/cardapio')
+        fetch('http://localhost:3001/cardapio')
             .then(resp => resp.json())
             .then(resp => resp.filter(item => item.tipo === 'bebida'))
             .then(apenasBebidas => setBebidas(apenasBebidas))
