@@ -33,10 +33,15 @@ const carrinhoSlice = createSlice ({
             const _id = action.payload;
             const itemExistente = state.itemsCarrinho.find(item => item._id === _id);
 
-            if(itemExistente){
+            if(itemExistente.qtde === 1){
                 state.qtdeTotal -= itemExistente.qtde;
-                state.valorTotal -= itemExistente.precoTotal;
-                state.itemsCarrinho = state.itemsCarrinho.fill(item => item._id !== _id);
+                state.valorTotal -= itemExistente.preco;
+                state.itemsCarrinho = state.itemsCarrinho.filter(item => item._id !== _id);
+            } else {
+                itemExistente.qtde--;
+                itemExistente.precoTotal -= itemExistente.preco;
+                state.qtdeTotal--;
+                state.valorTotal -= itemExistente.preco;
             }
         },
 
