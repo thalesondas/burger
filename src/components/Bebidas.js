@@ -1,34 +1,24 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Bebida from "./Bebida";
-
-const simularBebidas = [
-    {
-        id: 1,
-        nome: 'bebida 1',
-        preco: 5.99,
-        imagem: 'https://tdc0wy.vteximg.com.br/arquivos/ids/163808-300-300/REFRIGERANTE-COCA-COLA-LATA-350ML-ORIGINAL.png?'
-    },
-    {
-        id: 2,
-        nome: 'bebida 2',
-        preco: 5.99,
-        imagem: 'https://tdc0wy.vteximg.com.br/arquivos/ids/163808-300-300/REFRIGERANTE-COCA-COLA-LATA-350ML-ORIGINAL.png?'
-    }
-    ,
-    {
-        id: 3,
-        nome: 'bebida 3',
-        preco: 9.99,
-        imagem: 'https://tdc0wy.vteximg.com.br/arquivos/ids/163808-300-300/REFRIGERANTE-COCA-COLA-LATA-350ML-ORIGINAL.png?'
-    }
-]
+import { useEffect, useState } from "react";
 
 const Bebidas = () => {
+
+    const [bebidas, setBebidas] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/api/cardapio')
+            .then(resp => resp.json())
+            .then(resp => resp.filter(item => item.tipo === 'bebida'))
+            .then(apenasBebidas => setBebidas(apenasBebidas))
+            .catch(err => console.log(err));
+    }, [])
+
     return(
         <Container fluid>
             <Row className="mx-1 mb-2">
-                {simularBebidas.map((bebida) => (
-                    <Col lg={4} xl={3} key={bebida.id}>
+                {bebidas.map((bebida) => (
+                    <Col lg={4} xl={3} key={bebida._id}>
                         <Bebida bebida={bebida} />
                     </Col>
                 ))}
