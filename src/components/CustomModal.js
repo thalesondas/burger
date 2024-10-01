@@ -4,13 +4,16 @@ import { useSelector } from 'react-redux';
 import { fecharModal } from '../redux/modalSlice';
 import { limparCarrinho, removerItemCarrinho } from '../redux/carrinhoSlice';
 import { useDispatch } from 'react-redux';
-import { Row } from 'react-bootstrap';
+import { Alert, Row } from 'react-bootstrap';
 import '../assets/CustomModal.css'
 import { useState } from 'react';
 
 const CustomModal = () => {
 
     const [endereco, setEndereco] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertVariant, setAlertVariant] = useState('success');
 
     const modal = useSelector(state => state.modal);
     const carrinho = useSelector(state => state.carrinho);
@@ -45,7 +48,9 @@ const CustomModal = () => {
             });
 
             if(resp.ok){
-                alert('Pedido enviado com sucesso!');
+                setAlertMessage('Pedido enviado com sucesso!');
+                setAlertVariant('success');
+                setShowAlert(true);
             } else {
                 throw new Error('Falha ao enviar pedido.')
             }
@@ -55,7 +60,9 @@ const CustomModal = () => {
 
         } catch(error){
             console.error(error);
-            alert('Erro ao enviar pedido: ' + error.message);
+            setAlertMessage('Erro ao enviar pedido: ' + error.message);
+            setAlertVariant('danger');
+            setShowAlert(true);
         }
     }
 
@@ -66,6 +73,11 @@ const CustomModal = () => {
                     <Modal.Title>Carrinho</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {showAlert && (
+                        <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
+                            {alertMessage}
+                        </Alert>
+                    )}
                     {carrinho.itemsCarrinho.length > 0 ? (
                         <>
                             {carrinho.itemsCarrinho.map((item) => (

@@ -5,8 +5,6 @@ const connectDB = require('./db.js');
 const CardapioItem = require('./src/models/CardapioItem.js');
 const Pedido = require('./src/models/Pedido.js');
 
-const PORT = process.env.PORT;
-
 connectDB();
 
 app.use(cors());
@@ -39,6 +37,6 @@ app.get('/cardapio', async(req, res) => {
     }
 })
 
-app.listen(PORT, () => {
+app.listen(3001, () => {
     console.log('Servidor rodando na porta 3001');
 });
