@@ -13,7 +13,7 @@ const CarrinhoCaixa = () => {
                 <span className='fs-5 me-2'>Carrinho</span>
                 <div className='position-relative'>
                     <i className="bi bi-cart4 fs-4"></i>
-                    <div className='carrinho-qtde d-flex justify-content-center align-items-center text-center position-absolute fs-5'>{carrinho.qtdeTotal}</div>
+                    <div className='carrinho-qtde d-flex justify-content-center align-items-center text-center position-absolute fw-bold'>{carrinho.qtdeTotal}</div>
                 </div>
             </span>
         </footer>
