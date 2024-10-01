@@ -7,7 +7,7 @@ const Cardapio = () => {
     const [lanches, setLanches] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/cardapio')
+        fetch('https://rocknrollburger-server.vercel.app/cardapio')
             .then(resp => resp.json())
             .then(resp => resp.filter(item => item.tipo === 'lanche'))
             .then(apenasLanches => setLanches(apenasLanches))
