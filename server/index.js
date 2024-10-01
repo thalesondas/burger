@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const connectDB = require('./db.js');
-const CardapioItem = require('./src/models/CardapioItem.js');
-const Pedido = require('./src/models/Pedido.js');
+const CardapioItem = require('./models/CardapioItem.js');
+const Pedido = require('./models/Pedido.js');
 
 connectDB();
 
