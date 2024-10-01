@@ -14,8 +14,8 @@
 }
 
 .img-lanche{
-    width: 160px !important;
-    height: 120px;
+    width: 170px !important;
+    height: 125px;
     object-fit: cover;
     transition: transform 0.3s;   
 }
