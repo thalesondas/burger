@@ -6,10 +6,20 @@ import { limparCarrinho, removerItemCarrinho } from '../redux/carrinhoSlice';
 import { useDispatch } from 'react-redux';
 import { Alert, Row } from 'react-bootstrap';
 import '../assets/CustomModal.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CustomModal = () => {
 
+    useEffect(() => {
+        const horas = new Date().getHours();
+        const diaSemana = new Date().getDay();
+        
+        if(diaSemana !== 1 && horas >= 17){
+            setEstaAberta(true);
+        }
+    }, [])
+    
+    const [estaAberta, setEstaAberta ] = useState(false);
     const [endereco, setEndereco] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -66,6 +76,14 @@ const CustomModal = () => {
         }
     }
 
+    const alertLojaFechada = () => {
+        setAlertMessage('Erro ao enviar pedido: a lanchonete está fechada!');
+        setAlertVariant('danger');
+        setShowAlert(true);
+        setEndereco('');
+        dispatch(limparCarrinho());
+    }
+
     return(
         <>
             <Modal scrollable show={modal.estaAberto} onHide={() => dispatch(fecharModal())}>
@@ -116,9 +134,15 @@ const CustomModal = () => {
                     <Button variant='danger' size='sm' onClick={() => dispatch(limparCarrinho())}>
                         Esvaziar carrinho
                     </Button>
-                    <Button disabled={endereco.length === 0} variant="success" size="sm" onClick={() => enviarPedido()}>
-                        Enviar Pedido
-                    </Button>
+                    {estaAberta ? (
+                        <Button disabled={endereco.length === 0} variant="success" size="sm" onClick={() => enviarPedido()}>
+                            Enviar Pedido
+                        </Button>
+                    ) : (
+                        <Button disabled={endereco.length === 0} variant="danger" size="sm" onClick={() => alertLojaFechada()}>
+                            Enviar Pedido
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
         </>
