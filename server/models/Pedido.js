@@ -4,6 +4,11 @@ const pedidoSchema = new mongoose.Schema({
     endereco: String,
     preco: Number,
     dataAtual: String,
+    usuario: {
+        nome: String,
+        email: String,
+        cpf: String
+    },
     items: [{
         nome: String,
         qtde: Number

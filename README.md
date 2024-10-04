@@ -8,12 +8,12 @@ Rock 'n' Roll Burger é um site interativo de uma hamburgueria fictícia, onde o
 
 ## Tecnologias utilizadas
 
-JavaScript
-React.js
-React Bootstrap
-Bootstrap
-Redux Toolkit
-Node.js
-Express.js
-MongoDB
-Fetch API
+- JavaScript
+- React.js
+- React Bootstrap
+- Bootstrap
+- Redux Toolkit
+- Node.js
+- Express.js
+- MongoDB
+- Fetch API
