@@ -7,9 +7,9 @@ const Bebidas = () => {
     const [bebidas, setBebidas] = useState([]);
 
     useEffect(() => {
-        fetch('https://rocknrollburger-server.vercel.app/cardapio')
+        fetch('https://rocknrollburger-server.vercel.app/api/menu')
             .then(resp => resp.json())
-            .then(resp => resp.filter(item => item.tipo === 'bebida'))
+            .then(resp => resp.filter(item => item.type === 'bebida'))
             .then(apenasBebidas => setBebidas(apenasBebidas))
             .catch(err => console.log(err));
     }, [])

@@ -17,3 +17,4 @@ Rock 'n' Roll Burger é um site interativo de uma hamburgueria fictícia, onde o
 - Express.js
 - MongoDB
 - Fetch API
+- JWT

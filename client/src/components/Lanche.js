@@ -10,12 +10,12 @@ const Lanche = ({ lanche }) => {
     return (
         <Card md={6} className="bg-lanche mb-3">
             <div className="d-flex">
-                <Card.Img src={lanche.imagemUrl} alt={lanche.nome} className="img-lanche" rounded />
+                <Card.Img src={lanche.imageUrl} alt={lanche.name} className="img-lanche" rounded />
                 <Card.Body className="ms-2 me-1">
-                    <Card.Title className="custom-font mb-3 fs-4">{lanche.nome}</Card.Title>
-                    <Card.Text>{lanche.descricao}</Card.Text>
+                    <Card.Title className="custom-font mb-3 fs-4">{lanche.name}</Card.Title>
+                    <Card.Text>{lanche.description}</Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
-                        <span className="fw-bold fs-5">R$ {lanche.preco.toFixed(2).replace('.', ',')}</span>
+                        <span className="fw-bold fs-5">R$ {lanche.price.toFixed(2).replace('.', ',')}</span>
                         <Button className="bg-btn-lanche d-flex align-items-center" onClick={() => dispatch(addItemCarrinho(lanche))}>
                             <i className="bi bi-plus-square"></i>
                         </Button>

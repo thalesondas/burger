@@ -49,7 +49,7 @@ const CustomModal = () => {
         }
 
         try{
-            const resp = await fetch('http://localhost:3001/pedidos', {
+            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

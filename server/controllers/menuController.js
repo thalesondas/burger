@@ -1,12 +1,12 @@
-const CardapioItem = require('../models/CardapioItem');
+const MenuItem = require('../models/MenuItem');
 
-const getCardapioItems = async(req, res) => {
+const getMenuItems = async(req, res) => {
     try {
-        const cardapioItems = await CardapioItem.find();
-        res.json(cardapioItems);
+        const menuItems = await MenuItem.find();
+        res.json(menuItems);
     } catch (err) {
         res.status(500).json({ error: 'Erro ao buscar o cardápio' });
     }
 };
 
-module.exports = { getCardapioItems };
+module.exports = getMenuItems;

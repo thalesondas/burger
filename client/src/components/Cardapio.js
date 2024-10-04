@@ -7,9 +7,9 @@ const Cardapio = () => {
     const [lanches, setLanches] = useState([]);
 
     useEffect(() => {
-        fetch('https://rocknrollburger-server.vercel.app/cardapio')
+        fetch('https://rocknrollburger-server.vercel.app/api/menu')
             .then(resp => resp.json())
-            .then(resp => resp.filter(item => item.tipo === 'lanche'))
+            .then(resp => resp.filter(item => item.type === 'lanche'))
             .then(apenasLanches => setLanches(apenasLanches))
             .catch(err => console.log(err));
     }, [])
