@@ -1,25 +1,25 @@
-.bg-bebida{
+.bg-drink{
     background-color: rgb(34, 34, 34) !important;
     color: white !important;
     border: 1px solid white !important;
 }
 
-.bg-btn-bebida{
+.bg-btn-drink{
     background-color: #bd9768 !important;
     border: #bd9768 !important;
 }
 
-.bg-btn-bebida:hover{
+.bg-btn-drink:hover{
     background-color: #866844 !important;
 }
 
-.img-bebida{
+.img-drink{
     width: 130px !important;
     height: 170px;
     object-fit: cover;
     transition: transform 0.3s;   
 }
 
-.img-bebida:hover{
+.img-drink:hover{
     transform: scale(1.3);
 }

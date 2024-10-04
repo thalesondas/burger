@@ -1,9 +1,9 @@
-import Header from './components/Header.js';
-import Main from './components/Main.js'
-import CarrinhoCaixa from './components/CarrinhoCaixa.js'
-import CustomModal from './components/CustomModal.js';
 import { Provider } from 'react-redux';
-import store from './redux/store.js';
+import store from './redux/store';
+import Header from './components/Header';
+import Main from './components/Main'
+import CartFooter from './components/CartFooter'
+import CustomModal from './components/CustomModal';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,7 +14,7 @@ const App = () => {
         <Provider store={store}>
           <Header />
           <Main />
-          <CarrinhoCaixa />
+          <CartFooter />
           <CustomModal />
         </Provider>
     </>

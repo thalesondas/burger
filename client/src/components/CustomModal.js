@@ -1,38 +1,37 @@
+import { useEffect, useState } from 'react';
+import { Alert, Row } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearCart, removeCartItem } from '../redux/cartSlice';
+import { closeModal } from '../redux/modalSlice';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { useSelector } from 'react-redux';
-import { fecharModal } from '../redux/modalSlice';
-import { limparCarrinho, removerItemCarrinho } from '../redux/carrinhoSlice';
-import { useDispatch } from 'react-redux';
-import { Alert, Row } from 'react-bootstrap';
 import '../assets/CustomModal.css'
-import { useEffect, useState } from 'react';
 
 const CustomModal = () => {
 
     useEffect(() => {
-        const horas = new Date().getHours();
-        const diaSemana = new Date().getDay();
+        const hours = new Date().getHours();
+        const weekDay = new Date().getDay();
         
-        if(diaSemana !== 1 && horas >= 17){
-            setEstaAberta(true);
+        if(weekDay !== 1 && hours >= 17){
+            setIsOpen(true);
         }
     }, [])
     
-    const [estaAberta, setEstaAberta ] = useState(false);
-    const [endereco, setEndereco] = useState('');
+    const [isOpen, setIsOpen ] = useState(false);
+    const [address, setAddress] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertVariant, setAlertVariant] = useState('success');
 
     const modal = useSelector(state => state.modal);
-    const carrinho = useSelector(state => state.carrinho);
+    const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
-    const enviarPedido = async() => {
-        const dataAtual = new Date();
+    const sendOrder = async() => {
+        const currentDate = new Date();
 
-        const opcoes = {
+        const options = {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -41,11 +40,11 @@ const CustomModal = () => {
             second: 'numeric'
         };
 
-        const pedido = {
-            endereco: endereco,
-            preco: carrinho.valorTotal,
-            dataAtual: dataAtual.toLocaleString('pt-BR', opcoes),
-            items: carrinho.itemsCarrinho     
+        const order = {
+            address: address,
+            price: cart.totalPrice,
+            currentDate: currentDate.toLocaleString('pt-BR', options),
+            items: cart.cartItems    
         }
 
         try{
@@ -54,7 +53,7 @@ const CustomModal = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(pedido)
+                body: JSON.stringify(order)
             });
 
             if(resp.ok){
@@ -65,8 +64,8 @@ const CustomModal = () => {
                 throw new Error('Falha ao enviar pedido.')
             }
 
-            setEndereco('');
-            dispatch(limparCarrinho());
+            setAddress('');
+            dispatch(clearCart());
 
         } catch(error){
             console.error(error);
@@ -76,17 +75,17 @@ const CustomModal = () => {
         }
     }
 
-    const alertLojaFechada = () => {
+    const alertClosedBurgerShop = () => {
         setAlertMessage('Erro ao enviar pedido: a lanchonete está fechada!');
         setAlertVariant('danger');
         setShowAlert(true);
-        setEndereco('');
-        dispatch(limparCarrinho());
+        setAddress('');
+        dispatch(clearCart());
     }
 
     return(
         <>
-            <Modal scrollable show={modal.estaAberto} onHide={() => dispatch(fecharModal())}>
+            <Modal scrollable show={modal.isOpen} onHide={() => dispatch(closeModal())}>
                 <Modal.Header>
                     <Modal.Title>Carrinho</Modal.Title>
                 </Modal.Header>
@@ -96,31 +95,31 @@ const CustomModal = () => {
                             {alertMessage}
                         </Alert>
                     )}
-                    {carrinho.itemsCarrinho.length > 0 ? (
+                    {cart.cartItems.length > 0 ? (
                         <>
-                            {carrinho.itemsCarrinho.map((item) => (
+                            {cart.cartItems.map((item) => (
                                 <Row key={item._id}>
                                     <div className="d-flex justify-content-between align-items-center w-100">
                                         <div className='d-flex flex-column'>
-                                            <h4 className='mb-1'>{item.nome}</h4>
-                                            <span className='mb-1'>Quantidade: {item.qtde}</span>
-                                            <span className='mb-2'>R$ {item.precoTotal.toFixed(2).replace('.', ',')}</span>
+                                            <h4 className='mb-1'>{item.name}</h4>
+                                            <span className='mb-1'>Quantidade: {item.qty}</span>
+                                            <span className='mb-2'>R$ {item.totalPrice.toFixed(2).replace('.', ',')}</span>
                                         </div>
-                                        <i className="delete-icon bi bi-x-square-fill fs-3" onClick={() => dispatch(removerItemCarrinho(item._id))}></i>
+                                        <i className="delete-icon bi bi-x-square-fill fs-3" onClick={() => dispatch(removeCartItem(item._id))}></i>
                                     </div>
                                     <hr/>
                                 </Row>
                             ))}
                             <Row className='mt-1 mb-3'>
-                                <span className='fw-bold fs-4'>Valor total: R$ {carrinho.valorTotal.toFixed(2).replace('.', ',')}</span>
+                                <span className='fw-bold fs-4'>Valor total: R$ {cart.totalPrice.toFixed(2).replace('.', ',')}</span>
                             </Row>
                             <span className='fw-bold fs-5'>Endereço de entrega:</span>
                             <input 
-                                className='input-endereco mt-1 mb-2 p-1 w-100'
+                                className='input-address mt-1 mb-2 p-1 w-100'
                                 type='text' 
                                 placeholder='Coloque seu endereço completo...'
-                                value={endereco}
-                                onChange={(e) => setEndereco(e.target.value)}>
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}>
                             </input>
                         </>
                     ) : (
@@ -128,18 +127,18 @@ const CustomModal = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer className='d-flex justify-content-between'>
-                    <Button variant="secondary" size="sm" onClick={() => dispatch(fecharModal())}>
+                    <Button variant="secondary" size="sm" onClick={() => dispatch(closeModal())}>
                         Fechar
                     </Button>
-                    <Button variant='danger' size='sm' onClick={() => dispatch(limparCarrinho())}>
+                    <Button variant='danger' size='sm' onClick={() => dispatch(clearCart())}>
                         Esvaziar carrinho
                     </Button>
-                    {estaAberta ? (
-                        <Button disabled={endereco.length === 0} variant="success" size="sm" onClick={() => enviarPedido()}>
+                    {isOpen ? (
+                        <Button disabled={address.length === 0} variant="success" size="sm" onClick={() => sendOrder()}>
                             Enviar Pedido
                         </Button>
                     ) : (
-                        <Button disabled={endereco.length === 0} variant="danger" size="sm" onClick={() => alertLojaFechada()}>
+                        <Button disabled={address.length === 0} variant="danger" size="sm" onClick={() => alertClosedBurgerShop()}>
                             Enviar Pedido
                         </Button>
                     )}

@@ -1,25 +1,25 @@
-.bg-lanche{
+.bg-burger{
     background-color: rgb(34, 34, 34) !important;
     color: white !important;
     border: 1px solid white !important;
 }
 
-.bg-btn-lanche{
+.bg-btn-burger{
     background-color: #bd9768 !important;
     border: #bd9768 !important;
 }
 
-.bg-btn-lanche:hover{
+.bg-btn-burger:hover{
     background-color: #866844 !important;
 }
 
-.img-lanche{
+.img-burger{
     width: 170px !important;
     height: 125px;
     object-fit: cover;
     transition: transform 0.3s;   
 }
 
-.img-lanche:hover{
+.img-burger:hover{
     transform: scale(1.3);
 }
