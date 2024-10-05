@@ -11,12 +11,12 @@ const App = () => {
 
   return (
     <>
-        <Provider store={store}>
-          <Header />
-          <Main />
-          <CartFooter />
-          <CustomModal />
-        </Provider>
+      <Provider store={store}>
+        <Header />
+        <Main />
+        <CartFooter />
+        <CustomModal />
+      </Provider>
     </>
   );
 }

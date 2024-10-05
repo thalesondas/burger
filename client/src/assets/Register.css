@@ -1,0 +1,15 @@
+.register-width{
+    width: 18rem !important;
+}
+
+.register-btn {
+    padding: 10px 20px !important;
+    background-color: #bd9768 !important;
+    border: none !important;
+    border-radius: 5px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.register-btn:hover {
+    background-color: #816a4f !important;
+}
