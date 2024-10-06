@@ -45,7 +45,7 @@ const loginUser = async(req, res) => {
         // Comparar as senhas
         const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
         if(!isPasswordCorrect){
-            return res.status(401).json("Senha incorreta");
+            return res.status(401).json({ error: "Senha incorreta" });
         }
 
         // Gerar o token JWT
