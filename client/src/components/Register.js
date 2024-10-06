@@ -4,7 +4,7 @@ import '../assets/RegisterLogin.css'
 const Register = () => {
     return (
         <Container className="d-flex flex-column align-items-center">
-            <h2 className="my-5 custom-font">Registrar conta</h2>
+            <h2 className="my-5 custom-font">Criar conta</h2>
             <Form>
                 <Row className="gap-3">
                     <Col className="register-width">
@@ -36,7 +36,7 @@ const Register = () => {
                         
                         <div className="mt-4 d-flex justify-content-center align-items-start">
                             <Button className="mt-3 register-login-btn" type="submit">
-                                Cadastrar
+                                Criar
                             </Button>
                         </div>
                     </Col>
