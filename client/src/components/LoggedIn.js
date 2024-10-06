@@ -16,20 +16,24 @@ const LoggedIn = () => {
         } else {
             setGreetings("Boa tarde");
         }
+
+        setUsername(localStorage.getItem('username'));
     }, [])
 
     const [greetings, setGreetings] = useState("")
+    const [username, setUsername] = useState("");
 
     const dispatch = useDispatch();
 
     const handleLogOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         dispatch(logout());
     }
 
     return(
         <Container className="d-flex justify-content-center align-items-center">
-            <span className="fw-bold">{greetings}, XXX</span>
+            <span className="fw-bold">{greetings}, {username}</span>
             <Button onClick={handleLogOut} className="btn-footer ms-3 py-1 px-2">Sair da conta</Button>
         </Container>
     )

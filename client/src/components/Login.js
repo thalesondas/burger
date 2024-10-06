@@ -54,6 +54,7 @@ const Login = () => {
             setSuccess("Login bem-sucedido");
             setFormData({ email: '', password: '' });
             localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.username);
             dispatch(login());
             navigate('/');
 
