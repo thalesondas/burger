@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 import '../assets/RegisterLogin.css'
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -46,6 +48,7 @@ const Login = () => {
             setFormData({ email: '', password: '' });
             localStorage.setItem('token', data.token);
             dispatch(login());
+            navigate('/');
 
         } catch(error){
             setError("Error: " + error.message);
@@ -72,8 +75,14 @@ const Login = () => {
                     </Button>
                 </div>
             </Form>
-            {error && <div className="alert alert-danger">{error}</div>}
-            {success && <div className="alert alert-success">{success}</div>}
+            {error && <span className="alert alert-danger">{error}</span>}
+            {success && <span className="alert alert-success">{success}</span>}
+
+            <div className="mt-5 d-flex justify-content-center">
+                <Button variant="secondary" onClick={() => navigate('/')}>
+                    Voltar ao Menu Principal
+                </Button>
+            </div>
         </Container>
     );
 }

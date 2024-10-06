@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import '../assets/RegisterLogin.css'
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: '',
@@ -52,6 +55,7 @@ const Register = () => {
             if(resp.ok){
                 setSuccess('Usuário criado com sucesso');
                 setFormData({ username: '', email: '', cpf: '', password: '', repeatPassword: '' });
+                navigate('/login');
             } else {
                 setError(result.error || 'Erro ao criar usuário');
             }
@@ -106,6 +110,12 @@ const Register = () => {
             </Form>
             {error && <p className="text-danger mt-3">{error}</p>}
             {success && <p className="text-success mt-3">{success}</p>}
+
+            <div className="mt-4 d-flex justify-content-center">
+                <Button variant="secondary" onClick={() => navigate('/')}>
+                    Voltar ao Menu Principal
+                </Button>
+            </div>
         </Container>
     );
 }
