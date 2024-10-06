@@ -1,10 +1,15 @@
 import { Button, Container } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 import '../assets/LoggedBox.css'
 
 const LoggedIn = () => {
 
+    const dispatch = useDispatch();
+
     const handleLougOut = () => {
         localStorage.removeItem('token');
+        dispatch(logout());
     }
 
     return(

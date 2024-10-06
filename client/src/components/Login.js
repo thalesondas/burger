@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
 import '../assets/RegisterLogin.css'
 
 const Login = () => {
 
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const dispatch = useDispatch();
 
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
@@ -40,7 +43,10 @@ const Login = () => {
 
             const data = await resp.json();
             setSuccess("Login bem-sucedido");
+            setFormData({ email: '', password: '' });
             localStorage.setItem('token', data.token);
+            dispatch(login());
+
         } catch(error){
             setError("Error: " + error.message);
         }

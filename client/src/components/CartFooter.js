@@ -7,10 +7,9 @@ import '../assets/CartFooter.css'
 
 const CartFooter = () => {
 
-    const cart = useSelector(state => state.cart)
-    const dispatch = useDispatch()
-
-    const isLoggedIn = localStorage.getItem('token');
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     return(
         <footer className='py-2 fixed-bottom'>
