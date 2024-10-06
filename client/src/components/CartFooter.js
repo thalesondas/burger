@@ -10,11 +10,17 @@ const CartFooter = () => {
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
 
+    const isLoggedIn = localStorage.getItem('token');
+
     return(
         <footer className='py-2 fixed-bottom'>
             <Row className='d-flex align-items-center justify-content-center w-100'>
                 <Col xs={6} className='d-flex justify-content-center'>
-                    <NotLoggedIn />
+                    {isLoggedIn ? (
+                        <LoggedIn />
+                    ) : (
+                        <NotLoggedIn />
+                    )}
                 </Col>
 
                 <Col xs={3} className='d-flex justify-content-start align-items-center'>
