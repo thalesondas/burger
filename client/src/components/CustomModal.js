@@ -19,7 +19,13 @@ const CustomModal = () => {
     }, [])
     
     const [isOpen, setIsOpen ] = useState(false);
-    const [address, setAddress] = useState('');
+    const [address, setAddress] = useState({
+        street: "",
+        number: "",
+        neighborhood: "",
+        city: "",
+        complement: ""
+    });
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertVariant, setAlertVariant] = useState('success');
@@ -27,6 +33,10 @@ const CustomModal = () => {
     const modal = useSelector(state => state.modal);
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
+
+    const canPlaceOrder = () => {
+        return isOpen && address.street && address.number && address.neighborhood && address.city;
+    };
 
     const sendOrder = async() => {
         const currentDate = new Date();
@@ -64,7 +74,13 @@ const CustomModal = () => {
                 throw new Error('Falha ao enviar pedido.')
             }
 
-            setAddress('');
+            setAddress({
+                street: "",
+                number: "",
+                neighborhood: "",
+                city: "",
+                complement: ""
+            });
             dispatch(clearCart());
 
         } catch(error){
@@ -79,7 +95,13 @@ const CustomModal = () => {
         setAlertMessage('Erro ao enviar pedido: a lanchonete está fechada!');
         setAlertVariant('danger');
         setShowAlert(true);
-        setAddress('');
+        setAddress({
+            street: "",
+            number: "",
+            neighborhood: "",
+            city: "",
+            complement: ""
+        });
         dispatch(clearCart());
     }
 
@@ -117,9 +139,45 @@ const CustomModal = () => {
                             <input 
                                 className='input-address mt-1 mb-2 p-1 w-100'
                                 type='text' 
-                                placeholder='Coloque seu endereço completo...'
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}>
+                                placeholder='Nome da rua'
+                                value={address.street}
+                                onChange={(e) => setAddress({ ...address, street: e.target.value})}>
+                            </input>
+                            <input 
+                                className='input-address mt-1 mb-2 p-1 w-25'
+                                type='number' 
+                                placeholder='Número'
+                                value={address.number}
+                                onChange={(e) => setAddress({ ...address, number: e.target.value})}>
+                            </input>
+                            <input 
+                                className='input-address mt-1 mb-2 p-1 w-75'
+                                type='text' 
+                                placeholder='Bairro'
+                                value={address.neighborhood}
+                                onChange={(e) => setAddress({ ...address, neighborhood: e.target.value})}>
+                            </input>
+                            <select 
+                                className='input-address mt-1 mb-2 p-1 w-75'
+                                value={address.city}
+                                onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                            >
+                                <option value="" disabled>Selecione a cidade</option>
+                                <option value="Americana">Americana</option>
+                                <option value="Santa Bárbara d'Oeste">Santa Bárbara d'Oeste</option>
+                            </select>
+                            <input
+                                disabled
+                                className='input-address mt-1 mb-2 p-1 w-25'
+                                placeholder='SP'
+                            >
+                            </input>
+                            <input 
+                                className='input-address mt-1 mb-2 p-1 w-100'
+                                type='text' 
+                                placeholder='Complemento'
+                                value={address.complement}
+                                onChange={(e) => setAddress({ ...address, complement: e.target.value})}>
                             </input>
                         </>
                     ) : (
@@ -134,11 +192,14 @@ const CustomModal = () => {
                         Esvaziar carrinho
                     </Button>
                     {isOpen ? (
-                        <Button disabled={address.length === 0} variant="success" size="sm" onClick={() => sendOrder()}>
+                        <Button disabled={!canPlaceOrder()}
+                                variant="success"
+                                size="sm"
+                                onClick={() => sendOrder()}>
                             Enviar Pedido
                         </Button>
                     ) : (
-                        <Button disabled={address.length === 0} variant="danger" size="sm" onClick={() => alertClosedBurgerShop()}>
+                        <Button variant="danger" size="sm" onClick={() => alertClosedBurgerShop()}>
                             Enviar Pedido
                         </Button>
                     )}
