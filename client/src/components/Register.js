@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import '../assets/RegisterLogin.css'
 
 const Register = () => {
 
     const navigate = useNavigate();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     const [formData, setFormData] = useState({
         username: '',
@@ -17,6 +19,12 @@ const Register = () => {
 
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/');
+        }
+    }, [navigate, isLoggedIn]);
 
     const handleChange = (ev) =>{
         setFormData({

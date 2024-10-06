@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import '../assets/RegisterLogin.css'
@@ -9,10 +9,17 @@ const Login = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/');
+        }
+    }, [navigate, isLoggedIn]);
 
     const handleChange = (ev) => {
         setFormData({ ...formData,
