@@ -71,9 +71,6 @@ const Register = () => {
         } catch(error){
             setError("Erro ao enviar a requisição: " + error);
         }
-
-        
-
     }
 
     return (

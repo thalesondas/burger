@@ -9,6 +9,8 @@ import '../assets/CustomModal.css'
 
 const CustomModal = () => {
 
+    const token = localStorage.getItem("token");
+
     useEffect(() => {
         const hours = new Date().getHours();
         const weekDay = new Date().getDay();
@@ -53,15 +55,19 @@ const CustomModal = () => {
         const order = {
             address: address,
             price: cart.totalPrice,
-            currentDate: currentDate.toLocaleString('pt-BR', options),
-            items: cart.cartItems    
-        }
+            orderDate: currentDate.toLocaleString('pt-BR', options),
+            items: cart.cartItems.map(item => ({
+                name: item.name,
+                quantity: item.qty
+            }))
+        };
 
         try{
-            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/order', {
+            const resp = await fetch('http://localhost:3001/api/order', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(order)
             });

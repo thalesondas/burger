@@ -49,7 +49,7 @@ const loginUser = async(req, res) => {
         }
 
         // Gerar o token JWT
-        const token = jwt.sign({ id: foundUser._id, username: foundUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ username: foundUser.username, email: foundUser.email, cpf: foundUser.cpf }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token, username: foundUser.username.split(' ')[0] });
 
     } catch(error){

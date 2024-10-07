@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    address: String,
+    address: {
+        street: String,
+        number: Number,
+        neighborhood: String,
+        city: String,
+        complement: String
+    },
     price: Number,
     orderDate: String,
     user: {
-        name: String,
+        username: String,
         email: String,
         cpf: String
     },
