@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import InputMask from 'react-input-mask';
 import '../assets/RegisterLogin.css'
 
 const Register = () => {
@@ -91,7 +92,9 @@ const Register = () => {
 
                         <Form.Group className="mb-3" controlId="formCpf">
                             <Form.Label>CPF</Form.Label>
-                            <Form.Control type="text" placeholder="Digite seu CPF" name="cpf" value={formData.cpf} onChange={handleChange} />
+                            <InputMask mask="999.999.999-99" value={formData.cpf} onChange={handleChange}>
+                                {() => <Form.Control type="text" placeholder="Digite seu CPF" name="cpf" />}
+                            </InputMask>
                         </Form.Group>
                     </Col>
                     <Col className="register-width">

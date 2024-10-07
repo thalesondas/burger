@@ -9,7 +9,7 @@ const Header = () => {
         const hours = new Date().getHours();
         const weekDay = new Date().getDay();
         
-        if(weekDay !== 1 && hours >= 17){
+        if(weekDay !== 1 && hours >= 17 && hours <= 22){
             setIsOpen(true);
         }
     }, [])
