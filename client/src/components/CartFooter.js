@@ -12,7 +12,7 @@ const CartFooter = () => {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     return(
-        <footer className='py-2 fixed-bottom'>
+        <footer className='py-1 fixed-bottom'>
             <Row className='d-flex align-items-center justify-content-between w-100'>
                 <Col xs={7} sm={5} md={5} className='d-flex justify-content-center'>
                     <Navbar expand="md">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Col, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -66,26 +66,27 @@ const Login = () => {
     return (
         <Container className="d-flex flex-column align-items-center">
             <h2 className="my-5 custom-font">Entrar na conta</h2>
-            <Form onSubmit={handleLogin} className="w-25">
-                <Form.Group className="mb-3" controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Digite o seu email" name="email" value={formData.email} onChange={handleChange} />
-                </Form.Group>
+            <Col xs={11} sm={10} md={6} lg={4}>
+                <Form onSubmit={handleLogin}>
+                    <Form.Group className="mb-3" controlId="formEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Digite o seu email" name="email" value={formData.email} onChange={handleChange} />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formPassword">
-                    <Form.Label>Senha</Form.Label>
-                    <Form.Control type="password" placeholder="Digite sua senha" name="password" value={formData.password} onChange={handleChange} />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formPassword">
+                        <Form.Label>Senha</Form.Label>
+                        <Form.Control type="password" placeholder="Digite sua senha" name="password" value={formData.password} onChange={handleChange} />
+                    </Form.Group>
 
-                <div className="mt-4 d-flex justify-content-center align-items-start">
-                    <Button className="mt-3 register-login-btn" type="submit">
-                        Entrar
-                    </Button>
-                </div>
-            </Form>
-            {error && <span className="alert alert-danger">{error}</span>}
-            {success && <span className="alert alert-success">{success}</span>}
-
+                    <div className="mt-4 d-flex justify-content-center align-items-start">
+                        <Button className="mt-3 register-login-btn" type="submit">
+                            Entrar
+                        </Button>
+                    </div>
+                </Form>
+                {error && <span className="alert alert-danger">{error}</span>}
+                {success && <span className="alert alert-success">{success}</span>}
+            </Col>
             <div className="mt-5 d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => navigate('/')}>
                     Voltar ao Menu Principal
