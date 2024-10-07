@@ -30,9 +30,9 @@ const CustomModal = () => {
         const hours = new Date().getHours();
         const weekDay = new Date().getDay();
         
-        setIsOpen(true);
-        /*if(weekDay !== 1 && hours >= 17 && hours <= 22){
-        }*/
+        if(weekDay !== 1 && hours >= 17 && hours <= 22){
+            setIsOpen(true);
+        }
     }, [])
 
     const canPlaceOrder = () => {
@@ -68,7 +68,7 @@ const CustomModal = () => {
         };
 
         try{
-            const resp = await fetch('http://localhost:3001/api/order', {
+            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,12 @@ const CustomModal = () => {
             });
 
             if(resp.ok){
-                dispatch(setAlert({ message: 'Pedido enviado com sucesso!' + <br/> + ' Aguarde 40 minutos para a entrega.' , variant: 'success' }));
+                dispatch(setAlert({ message: (
+                    <>
+                        Pedido enviado com sucesso! <br />
+                        Aguarde 40 minutos para a entrega
+                    </>
+                ) , variant: 'success' }));
             } else {
                 throw new Error('Falha ao enviar pedido.')
             }
@@ -98,7 +103,7 @@ const CustomModal = () => {
     }
 
     const alertClosedBurgerShop = () => {
-        dispatch(setAlert({ message: 'A lanchonete está fechada!', variant: 'success' }));
+        dispatch(setAlert({ message: 'A lanchonete está fechada!', variant: 'danger' }));
         setAddress({
             street: "",
             number: "",

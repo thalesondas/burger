@@ -1,6 +1,6 @@
 .global-alert{
     position: fixed;
-    top: 30px;
-    left: 80%;
-    z-index: 20;
+    top: 35px;
+    right: 3%;
+    z-index: 9999;
 }

@@ -31,7 +31,7 @@ const Login = () => {
         ev.preventDefault();
 
         try{
-            const resp = await fetch('http://localhost:3001/api/login', {
+            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/login', {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'

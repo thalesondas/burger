@@ -22,7 +22,7 @@ const GlobalAlert = () => {
     if (!show) return null;
 
     return (
-        <div className='global-alert pe-4'>
+        <div className='global-alert pe-5'>
             <Alert className='text-center' variant={variant}>
                 {message}
             </Alert>

@@ -75,7 +75,7 @@ const Register = () => {
         }
 
         try{
-            const resp = await fetch('http://localhost:3001/api/register', {
+            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/register', {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
