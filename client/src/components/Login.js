@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
+import { setAlert } from "../redux/alertSlice";
 import { useNavigate } from "react-router-dom";
 import '../assets/RegisterLogin.css'
 
@@ -12,8 +13,6 @@ const Login = () => {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     const [formData, setFormData] = useState({ email: '', password: '' });
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -30,8 +29,6 @@ const Login = () => {
     const handleLogin = async(ev) => {
 
         ev.preventDefault();
-        setError(null);
-        setSuccess(null);
 
         try{
             const resp = await fetch('http://localhost:3001/api/login', {
@@ -51,7 +48,7 @@ const Login = () => {
             }
 
             const data = await resp.json();
-            setSuccess("Login bem-sucedido");
+            dispatch(setAlert({ message: 'Login bem-sucedido', variant: 'success' }));
             setFormData({ email: '', password: '' });
             localStorage.setItem('token', data.token);
             localStorage.setItem('username', data.username);
@@ -59,7 +56,7 @@ const Login = () => {
             navigate('/');
 
         } catch(error){
-            setError("Error: " + error.message);
+            dispatch(setAlert({ message: error.message, variant: 'danger' }));
         }
     };
 
@@ -84,8 +81,6 @@ const Login = () => {
                         </Button>
                     </div>
                 </Form>
-                {error && <span className="alert alert-danger">{error}</span>}
-                {success && <span className="alert alert-success">{success}</span>}
             </Col>
             <div className="mt-5 d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => navigate('/')}>

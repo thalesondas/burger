@@ -7,6 +7,7 @@ import CustomModal from './components/CustomModal';
 import Register from './components/Register';
 import Login from './components/Login';
 import MainContent from './components/MainContent';
+import GlobalAlert from './components/GlobalAlert';
 import './App.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <GlobalAlert />
         <Header />
         <main className='pb-5'>
           <Routes>

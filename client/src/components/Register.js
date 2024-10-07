@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { setAlert } from "../redux/alertSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import InputMask from 'react-input-mask';
 import '../assets/RegisterLogin.css'
 
 const Register = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
@@ -17,9 +19,6 @@ const Register = () => {
         password: '',
         repeatPassword: ''
     });
-
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -37,11 +36,9 @@ const Register = () => {
     const handleRegisterUser = async(ev) =>{
 
         ev.preventDefault();
-        setError(null);
-        setSuccess(null);
 
         if(formData.password !== formData.repeatPassword){
-            setError("As senhas estão diferentes");
+            dispatch(setAlert({ message: 'As senhas estão diferentes', variant: 'danger' }));
             return;
         }
 
@@ -62,15 +59,15 @@ const Register = () => {
             const result = await resp.json();
 
             if(resp.ok){
-                setSuccess('Usuário criado com sucesso');
+                dispatch(setAlert({ message: 'Usuário criado com sucesso', variant: 'success' }));
                 setFormData({ username: '', email: '', cpf: '', password: '', repeatPassword: '' });
                 navigate('/login');
             } else {
-                setError(result.error || 'Erro ao criar usuário');
+                dispatch(setAlert({ message: result.error || 'Erro ao criar o usuário', variant: 'danger' }));
             }
 
         } catch(error){
-            setError("Erro ao enviar a requisição: " + error);
+            dispatch(setAlert({ message: 'Erro ao enviar a requisição', variant: 'danger' }));
         }
     }
 
@@ -116,9 +113,6 @@ const Register = () => {
                     </Col>
                 </Row>
             </Form>
-            {error && <p className="text-danger mt-3">{error}</p>}
-            {success && <p className="text-success mt-3">{success}</p>}
-
             <div className="mt-4 d-flex justify-content-center">
                 <Button variant="secondary" onClick={() => navigate('/')}>
                     Voltar ao Menu Principal

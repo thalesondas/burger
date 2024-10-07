@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Alert, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, removeCartItem } from '../redux/cartSlice';
 import { closeModal } from '../redux/modalSlice';
+import { setAlert } from '../redux/alertSlice';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import '../assets/CustomModal.css'
@@ -19,9 +20,6 @@ const CustomModal = () => {
         city: "",
         complement: ""
     });
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertVariant, setAlertVariant] = useState('success');
     
     const modal = useSelector(state => state.modal);
     const cart = useSelector(state => state.cart);
@@ -44,9 +42,7 @@ const CustomModal = () => {
     const sendOrder = async() => {
 
         if(!isLoggedIn){
-            setAlertMessage('Erro: precisa estar conectado');
-            setAlertVariant('danger');
-            setShowAlert(true);
+            dispatch(setAlert({ message: 'Precisa estar conectado para fazer o pedido', variant: 'danger' }));
             return
         }
 
@@ -82,9 +78,7 @@ const CustomModal = () => {
             });
 
             if(resp.ok){
-                setAlertMessage('Pedido enviado com sucesso!');
-                setAlertVariant('success');
-                setShowAlert(true);
+                dispatch(setAlert({ message: 'Pedido enviado com sucesso!' + <br/> + ' Aguarde 40 minutos para a entrega.' , variant: 'success' }));
             } else {
                 throw new Error('Falha ao enviar pedido.')
             }
@@ -99,17 +93,12 @@ const CustomModal = () => {
             dispatch(clearCart());
 
         } catch(error){
-            console.error(error);
-            setAlertMessage('Erro ao enviar pedido: ' + error.message);
-            setAlertVariant('danger');
-            setShowAlert(true);
+            dispatch(setAlert({ message: error.message, variant: 'danger' }));
         }
     }
 
     const alertClosedBurgerShop = () => {
-        setAlertMessage('Erro ao enviar pedido: a lanchonete está fechada!');
-        setAlertVariant('danger');
-        setShowAlert(true);
+        dispatch(setAlert({ message: 'A lanchonete está fechada!', variant: 'success' }));
         setAddress({
             street: "",
             number: "",
@@ -127,11 +116,6 @@ const CustomModal = () => {
                     <Modal.Title>Carrinho</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {showAlert && (
-                        <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
-                            {alertMessage}
-                        </Alert>
-                    )}
                     {cart.cartItems.length > 0 ? (
                         <>
                             {cart.cartItems.map((item) => (
