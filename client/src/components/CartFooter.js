@@ -22,7 +22,7 @@ const CartFooter = () => {
                     )}
                 </Col>
 
-                <Col xs={3} className='d-flex justify-content-start align-items-center'>
+                <Col xs={4} className='d-flex justify-content-start align-items-center'>
                     <span className='cursor-pointer d-flex' onClick={() => dispatch(openModal())}>
                         <span className='fs-5 me-2'>Carrinho</span>
                         <div className='position-relative'>
@@ -34,8 +34,9 @@ const CartFooter = () => {
                     </span>
                 </Col>
 
-                <Col xs={3} className='d-flex justify-content-center'>
-                    <div></div>
+                <Col xs={2} className='d-flex justify-content-around'>
+                    <i className="fs-3 cursor-pointer bi-facebook"></i>
+                    <i className="fs-3 cursor-pointer bi-instagram"></i>
                 </Col>
             </Row>
         </footer>
