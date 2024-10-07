@@ -3,6 +3,8 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { setAlert } from "../redux/alertSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { cpf } from 'cpf-cnpj-validator';
+import validator from 'validator';
 import InputMask from 'react-input-mask';
 import '../assets/RegisterLogin.css'
 
@@ -33,12 +35,42 @@ const Register = () => {
         });
     }
 
+    const validateFields = () => {
+        if(formData.username.length < 3){
+            dispatch(setAlert({ message: 'Nome de usuário deve ter no mínimo 3 letras', variant: 'danger' }));
+            return false;
+        }
+
+        const isValidEmail = validator.isEmail(formData.email);
+        if (!isValidEmail) {
+            dispatch(setAlert({ message: 'Email inválido', variant: 'danger' }));
+            return false;
+        }
+
+        const isValidCpf = cpf.isValid(formData.cpf);
+        if (!isValidCpf) {
+            dispatch(setAlert({ message: 'CPF inválido', variant: 'danger' }));
+            return false;
+        }
+        
+        if(formData.password !== formData.repeatPassword){
+            dispatch(setAlert({ message: 'As senhas estão diferentes', variant: 'danger' }));
+            return false;
+        }
+
+        if(formData.password.length < 8){
+            dispatch(setAlert({ message: 'Senha deve ter no mínimo 8 letras', variant: 'danger' }));
+            return false;
+        }
+        return true;
+    }
+
     const handleRegisterUser = async(ev) =>{
 
         ev.preventDefault();
 
-        if(formData.password !== formData.repeatPassword){
-            dispatch(setAlert({ message: 'As senhas estão diferentes', variant: 'danger' }));
+        const isValidFields = validateFields();
+        if(!isValidFields){
             return;
         }
 
