@@ -12,7 +12,7 @@ const Drink = ({ drink }) => {
             <div className="d-flex">
                 <Card.Img src={drink.imageUrl} alt={drink.name} className="img-drink my-2" rounded />
                 <Card.Body className="d-flex flex-column justify-content-between align-items-center">
-                    <Card.Title className="custom-font fs-4">{drink.name}</Card.Title>
+                    <Card.Title className="custom-font fs-4 text-center">{drink.name}</Card.Title>
                     <span className="fw-bold fs-5">R$ {drink.price.toFixed(2).replace('.', ',')}</span>
                     <Button className="bg-btn-drink d-flex align-items-center" onClick={() => dispatch(addCartItem(drink))}>
                         <i className="bi bi-plus-square"></i>

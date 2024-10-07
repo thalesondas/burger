@@ -4,17 +4,15 @@ import '../assets/LoggedBox.css'
 
 const NotLoggedIn = () => {
     return(
-        <Row className="ps-4 w-100 d-flex justify-content-around">
-            <Col className="col-auto d-flex align-items-center">
-                <span className="fw-bold">Você não está conectado</span>
+        <Row className="mt-2 mt-md-0 d-flex flex-column flex-md-row">
+            <Col className="d-flex align-items-start justify-content-start align-items-md-center justify-content-md-center">
                 <Link to='/login'>
-                    <Button className="btn-footer ms-2 py-1 px-2">Entrar</Button>
+                    <Button className="btn-footer ms-2 py-1 px-2 text-nowrap">Entrar na Conta</Button>
                 </Link>
             </Col>
-            <Col className="col-auto d-flex flex-row align-items-center">
-                <span className="fw-bold">Não tem uma conta?</span>
+            <Col className="mt-2 mt-md-0 d-flex align-items-start justify-content-start align-items-md-center justify-content-md-center">
                 <Link to='/register'>
-                    <Button className="btn-footer ms-2 py-1 px-2">Criar Conta</Button>
+                    <Button className="btn-footer ms-2 py-1 px-2 text-nowrap">Criar Conta</Button>
                 </Link>
             </Col>
         </Row>
