@@ -10,15 +10,6 @@ import '../assets/CustomModal.css'
 const CustomModal = () => {
 
     const token = localStorage.getItem("token");
-
-    useEffect(() => {
-        const hours = new Date().getHours();
-        const weekDay = new Date().getDay();
-        
-        if(weekDay !== 1 && hours >= 17 && hours <= 22){
-            setIsOpen(true);
-        }
-    }, [])
     
     const [isOpen, setIsOpen ] = useState(false);
     const [address, setAddress] = useState({
@@ -31,18 +22,36 @@ const CustomModal = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertVariant, setAlertVariant] = useState('success');
-
+    
     const modal = useSelector(state => state.modal);
     const cart = useSelector(state => state.cart);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();
+    
+    useEffect(() => {
+        const hours = new Date().getHours();
+        const weekDay = new Date().getDay();
+        
+        setIsOpen(true);
+        /*if(weekDay !== 1 && hours >= 17 && hours <= 22){
+        }*/
+    }, [])
 
     const canPlaceOrder = () => {
         return isOpen && address.street && address.number && address.neighborhood && address.city;
     };
-
+    
     const sendOrder = async() => {
-        const currentDate = new Date();
 
+        if(!isLoggedIn){
+            setAlertMessage('Erro: precisa estar conectado');
+            setAlertVariant('danger');
+            setShowAlert(true);
+            return
+        }
+
+        const currentDate = new Date();
+        
         const options = {
             year: 'numeric',
             month: 'long',
