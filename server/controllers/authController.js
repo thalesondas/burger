@@ -54,7 +54,7 @@ const loginUser = async(req, res) => {
 
     } catch(error){
         console.log(error);
-        res.status(500).json({ error: "Erro ao fazer login" })
+        res.status(500).json({ error: "Erro ao fazer login: " + error.message })
     }
 }
 
