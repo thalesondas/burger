@@ -44,7 +44,7 @@ const Login = () => {
 
             if(!resp.ok){
                 const data = await resp.json();
-                throw new Error(data.error || data.message || 'Erro desconhecido');
+                throw new Error(data.error || 'Erro desconhecido');
             }
 
             const data = await resp.json();
