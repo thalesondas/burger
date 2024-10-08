@@ -27,8 +27,9 @@ const CustomModal = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        const hours = new Date().getHours();
-        const weekDay = new Date().getDay();
+        const currentDate = new Date();
+        const hours = currentDate.getHours();
+        const weekDay = currentDate.getDay();
         
         if(weekDay !== 1 && hours >= 17 && hours <= 22){
             setIsOpen(true);
