@@ -9,8 +9,10 @@ const registerUser = async(req, res) => {
 
     try{
         // Verificar se e-mail ou CPF já existem
-        const existingEmail = await User.findOne({ email: email })
-        const existingCpf = await User.findOne({ cpf: cpf })
+        const [existingEmail, existingCpf] = await Promise.all([
+            User.findOne({ email }),
+            User.findOne({ cpf })
+        ]);
 
         if(existingEmail){
             return res.status(400).json({ error: "Usuário com este e-mail já existe" })
@@ -39,7 +41,7 @@ const loginUser = async(req, res) => {
         const foundUser = await User.findOne({ email: email });
 
         if(!foundUser){
-            res.status(404).json({ error: "Usuário não encontrado" })
+            return res.status(404).json({ error: "Usuário não encontrado" })
         }
 
         // Comparar as senhas
