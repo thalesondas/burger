@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setAlert } from "../redux/alertSlice";
 import Drink from "./Drink";
 
 const Drinks = () => {
+
+    const dispatch = useDispatch();
+
     const [drinks, setDrinks] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -15,13 +20,14 @@ const Drinks = () => {
                 setDrinks(justDrinks);
             } catch (err){
                 console.log(err);
+                dispatch(setAlert({ message: 'Falha ao carregar os drinks' , variant: 'danger'}))
             } finally{
                 setLoading(false);
             }
         };
 
         fetchDrinks();
-    }, []);
+    }, [dispatch]);
 
     return (
         <Container fluid>

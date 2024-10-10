@@ -137,6 +137,7 @@ const CustomModal = () => {
                                     <hr/>
                                 </Row>
                             ))}
+                            
                             <Row className='mt-1 mb-3'>
                                 <span className='fw-bold fs-4'>Valor total: R$ {cart.totalPrice.toFixed(2).replace('.', ',')}</span>
                             </Row>

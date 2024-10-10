@@ -7,24 +7,24 @@ import '../assets/GlobalAlert.css'
 const GlobalAlert = () => {
 
     const dispatch = useDispatch();
-    const { show, message, variant } = useSelector(state => state.alert);
+    const alert = useSelector(state => state.alert);
 
     useEffect(() => {
-        if (show) {
+        if (alert.show) {
             const timer = setTimeout(() => {
                 dispatch(clearAlert());
             }, 4000);
 
             return () => clearTimeout(timer);
         }
-    }, [show, dispatch]);
+    }, [alert.show, dispatch]);
 
-    if (!show) return null;
+    if (!alert.show) return null;
 
     return (
         <div className='global-alert pe-5'>
-            <Alert className='text-center' variant={variant}>
-                {message}
+            <Alert className='text-center' variant={alert.variant}>
+                {alert.message}
             </Alert>
         </div>
     );
