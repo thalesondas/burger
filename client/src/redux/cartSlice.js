@@ -33,15 +33,14 @@ const cartSlice = createSlice ({
             const _id = action.payload;
             const existingItem = state.cartItems.find(item => item._id === _id);
 
+            state.totalQty--;
+            state.totalPrice -= existingItem.price;
+
             if(existingItem.qty === 1){
-                state.totalQty -= existingItem.qty;
-                state.totalPrice -= existingItem.price;
                 state.cartItems = state.cartItems.filter(item => item._id !== _id);
             } else {
                 existingItem.qty--;
                 existingItem.totalPrice -= existingItem.price;
-                state.totalQty--;
-                state.totalPrice -= existingItem.price;
             }
         },
 
@@ -52,6 +51,10 @@ const cartSlice = createSlice ({
         }
     }
 })
+
+// Poderia criar um localStorage para salvar os dados do carrinho caso o usuário reiniciasse a página,
+// mas como não é muito importante essa questão, pois o usuário poderia rapidamente colocar
+// o pedido de volta para o carrinho, achei melhor não fazer
 
 export const { addCartItem, removeCartItem, clearCart } = cartSlice.actions;
 
