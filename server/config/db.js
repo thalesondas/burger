@@ -1,4 +1,5 @@
 require('dotenv').config();
+const chalk = require('chalk');
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -7,9 +8,9 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log("Conectado ao MongoDB com sucesso!");
+        console.log(chalk.green("Conectado ao MongoDB com sucesso!"));
     } catch(err) {
-        console.log("Erro ao se conectar com o MongoDB" + err);
+        console.log(chalk.red("Erro ao se conectar com o MongoDB" + err));
         process.exit(1);
     }
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const chalk = require('chalk');
 const connectDB = require('./config/db');
 //* const redisClient = require('./config/redis');
 
@@ -14,7 +15,7 @@ app.use('/', require('./routes/orderRoutes'));
 connectDB();
 
 app.listen(3001, () => {
-    console.log('Servidor rodando na porta 3001');
+    console.log(chalk.green.bold('Servidor rodando na porta 3001'));
 });
 
 /*
