@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { setAlert } from "../redux/alertSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { cpf } from 'cpf-cnpj-validator';
 import validator from 'validator';
@@ -75,30 +76,19 @@ const Register = () => {
         }
 
         try{
-            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/register', {
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: formData.username,
-                    email: formData.email,
-                    cpf: formData.cpf,
-                    password: formData.password
-                })
+            await axios.post('https://rocknrollburger-server.vercel.app/api/register', {
+                username: formData.username,
+                email: formData.email,
+                cpf: formData.cpf,
+                password: formData.password
             })
 
-            const result = await resp.json();
+            dispatch(setAlert({ message: 'Usuário criado com sucesso', variant: 'success' }));
+            setFormData({ username: '', email: '', cpf: '', password: '', repeatPassword: '' });
+            navigate('/login');
 
-            if(resp.ok){
-                dispatch(setAlert({ message: 'Usuário criado com sucesso', variant: 'success' }));
-                setFormData({ username: '', email: '', cpf: '', password: '', repeatPassword: '' });
-                navigate('/login');
-            } else {
-                dispatch(setAlert({ message: result.error || 'Erro ao criar o usuário', variant: 'danger' }));
-            }
-
-        } catch(error){
+        } catch (error) {
+            console.error('Erro ao registrar usuário:', error);
             dispatch(setAlert({ message: 'Erro ao enviar a requisição', variant: 'danger' }));
         }
     }

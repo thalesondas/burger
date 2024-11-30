@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 import { setAlert } from "../redux/alertSlice";
 import Drink from "./Drink";
 
@@ -14,9 +15,8 @@ const Drinks = () => {
     useEffect(() => {
         const fetchDrinks = async () => {
             try{
-                const resp = await fetch('https://rocknrollburger-server.vercel.app/api/menu');
-                const data = await resp.json();
-                const justDrinks = data.filter(item => item.type === 'drink');
+                const resp = await axios.get('https://rocknrollburger-server.vercel.app/api/menu');
+                const justDrinks = resp.data.filter(item => item.type === 'drink');
                 setDrinks(justDrinks);
             } catch (err){
                 console.log(err);

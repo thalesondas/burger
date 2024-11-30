@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 import { setAlert } from "../redux/alertSlice";
 import Burger from "./Burger";
 
@@ -14,9 +15,8 @@ const Menu = () => {
     useEffect(() => {
         const fetchBurgers = async() => {
             try{
-                const resp = await fetch('https://rocknrollburger-server.vercel.app/api/menu');
-                const data = await resp.json();
-                const justBurgers = data.filter(item => item.type === 'burger');
+                const resp = await axios.get('https://rocknrollburger-server.vercel.app/api/menu');
+                const justBurgers = resp.data.filter(item => item.type === 'burger');
                 setBurgers(justBurgers);
             } catch (err){
                 console.log(err);

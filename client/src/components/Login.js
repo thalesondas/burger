@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 import { login } from "../redux/authSlice";
 import { setAlert } from "../redux/alertSlice";
 import { useNavigate } from "react-router-dom";
@@ -31,34 +32,25 @@ const Login = () => {
         ev.preventDefault();
 
         try{
-            const resp = await fetch('https://rocknrollburger-server.vercel.app/api/login', {
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password
-                })
+
+            const resp = await axios.post('https://rocknrollburger-server.vercel.app/api/login', {
+                email: formData.email,
+                password: formData.password
             })
 
-            if(!resp.ok){
-                const data = await resp.json();
-                throw new Error(data.error || 'Erro desconhecido');
-            }
-
-            const data = await resp.json();
             dispatch(setAlert({ message: 'Login bem-sucedido', variant: 'success' }));
             setFormData({ email: '', password: '' });
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.username);
+            localStorage.setItem('token', resp.data.token);
+            localStorage.setItem('username', resp.data.username);
             dispatch(login());
             navigate('/');
 
-        } catch(error){
-            dispatch(setAlert({ message: error.message, variant: 'danger' }));
+        } catch (error) {
+            
+            const errorMessage = error.response?.data?.error || 'Erro desconhecido';
+            dispatch(setAlert({ message: errorMessage, variant: 'danger' }));
         }
-    };
+    }
 
     return (
         <Container className="d-flex flex-column align-items-center">
