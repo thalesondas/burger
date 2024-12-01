@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { setAlert } from "../redux/alertSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
@@ -15,6 +15,7 @@ const Register = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -76,6 +77,8 @@ const Register = () => {
         }
 
         try{
+            setLoading(true);
+
             await axios.post('https://rocknrollburger-server.vercel.app/api/register', {
                 username: formData.username,
                 email: formData.email,
@@ -90,6 +93,8 @@ const Register = () => {
         } catch (error) {
             console.error('Erro ao registrar usuário:', error);
             dispatch(setAlert({ message: 'Erro ao enviar a requisição', variant: 'danger' }));
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -128,8 +133,12 @@ const Register = () => {
                         </Form.Group>
                         
                         <div className="mt-4 d-flex justify-content-center align-items-start">
-                            <Button className="mt-3 register-login-btn" onClick={handleRegisterUser} type="submit">
-                                Criar
+                            <Button className="mt-3 register-login-btn" type="submit" disabled={loading}>
+                                {loading ? 
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                    :
+                                    'Criar'
+                                }
                             </Button>
                         </div>
                     </Col>

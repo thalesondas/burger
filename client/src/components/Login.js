@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { login } from "../redux/authSlice";
@@ -13,6 +13,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ email: '', password: '' });
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const Login = () => {
         ev.preventDefault();
 
         try{
+            setLoading(true);
 
             const resp = await axios.post('https://rocknrollburger-server.vercel.app/api/login', {
                 email: formData.email,
@@ -49,6 +51,8 @@ const Login = () => {
             
             const errorMessage = error.response?.data?.error || 'Erro desconhecido';
             dispatch(setAlert({ message: errorMessage, variant: 'danger' }));
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -69,7 +73,11 @@ const Login = () => {
 
                     <div className="mt-4 d-flex justify-content-center align-items-start">
                         <Button className="mt-3 register-login-btn" type="submit">
-                            Entrar
+                            {loading ?
+                                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                :
+                                'Entrar'
+                            }
                         </Button>
                     </div>
                 </Form>
